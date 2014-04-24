@@ -41,7 +41,8 @@ public class NetworkTestUtil {
 	 */
 	public static NetworkManager createSingleNode() {
 		INetworkConfiguration netConfig = NetworkConfiguration.create("Node A");
-		NetworkManager node = new NetworkManager(netConfig);
+		IFileConfiguration fileConfig = FileConfiguration.createDefault();
+		NetworkManager node = new NetworkManager(netConfig, fileConfig);
 		node.connect();
 		return node;
 	}
@@ -62,7 +63,9 @@ public class NetworkTestUtil {
 
 		// create the first node (initial)
 		INetworkConfiguration netConfig = NetworkConfiguration.create("Node A");
-		NetworkManager initial = new NetworkManager(netConfig);
+		IFileConfiguration fileConfig = FileConfiguration.createDefault();
+		
+		NetworkManager initial = new NetworkManager(netConfig, fileConfig);
 		initial.connect();
 		nodes.add(initial);
 
@@ -72,7 +75,7 @@ public class NetworkTestUtil {
 			try {
 				INetworkConfiguration otherNetConfig = NetworkConfiguration.create(
 						String.format("Node %s", ++letter), InetAddress.getLocalHost());
-				NetworkManager node = new NetworkManager(otherNetConfig);
+				NetworkManager node = new NetworkManager(otherNetConfig, fileConfig);
 				node.connect();
 				nodes.add(node);
 			} catch (UnknownHostException e) {

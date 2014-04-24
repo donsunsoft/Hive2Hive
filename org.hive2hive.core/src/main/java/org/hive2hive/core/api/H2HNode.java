@@ -29,7 +29,7 @@ public class H2HNode implements IH2HNode {
 		this.networkConfiguration = networkConfiguration;
 		this.fileConfiguration = fileConfiguration;
 
-		networkManager = new NetworkManager(networkConfiguration);
+		networkManager = new NetworkManager(networkConfiguration, fileConfiguration);
 	}
 
 	/**

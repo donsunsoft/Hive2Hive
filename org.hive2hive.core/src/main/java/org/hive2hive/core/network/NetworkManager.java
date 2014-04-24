@@ -5,6 +5,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.hive2hive.core.H2HSession;
+import org.hive2hive.core.api.interfaces.IFileConfiguration;
 import org.hive2hive.core.api.interfaces.INetworkConfiguration;
 import org.hive2hive.core.events.framework.interfaces.INetworkEventGenerator;
 import org.hive2hive.core.events.framework.interfaces.INetworkEventListener;
@@ -20,6 +21,7 @@ public class NetworkManager implements INetworkEventGenerator {
 	// belong here
 
 	private final INetworkConfiguration networkConfiguration;
+	private final IFileConfiguration fileConfiguration;
 
 	private final Connection connection;
 	private final DataManager dataManager;
@@ -28,8 +30,9 @@ public class NetworkManager implements INetworkEventGenerator {
 
 	private List<INetworkEventListener> eventListeners;
 
-	public NetworkManager(INetworkConfiguration networkConfiguration) {
+	public NetworkManager(INetworkConfiguration networkConfiguration, IFileConfiguration fileConfiguration) {
 		this.networkConfiguration = networkConfiguration;
+		this.fileConfiguration = fileConfiguration;
 
 		connection = new Connection(networkConfiguration.getNodeID(), this);
 		dataManager = new DataManager(this);
@@ -147,9 +150,9 @@ public class NetworkManager implements INetworkEventGenerator {
 		Iterator<INetworkEventListener> iterator = eventListeners.iterator();
 		while (iterator.hasNext()) {
 			if (isSuccessful)
-				iterator.next().onConnectionSuccess(new ConnectionEvent(networkConfiguration));
+				iterator.next().onConnectionSuccess(new ConnectionEvent(networkConfiguration, fileConfiguration));
 			else
-				iterator.next().onConnectionFailure(new ConnectionEvent(networkConfiguration));
+				iterator.next().onConnectionFailure(new ConnectionEvent(networkConfiguration, fileConfiguration));
 		}
 	}
 	
@@ -157,9 +160,9 @@ public class NetworkManager implements INetworkEventGenerator {
 		Iterator<INetworkEventListener> iterator = eventListeners.iterator();
 		while (iterator.hasNext()) {
 			if (isSuccessful)
-				iterator.next().onDisconnectionSuccess(new ConnectionEvent(networkConfiguration));
+				iterator.next().onDisconnectionSuccess(new ConnectionEvent(networkConfiguration, fileConfiguration));
 			else
-				iterator.next().onDisconnectionFailure(new ConnectionEvent(networkConfiguration));
+				iterator.next().onDisconnectionFailure(new ConnectionEvent(networkConfiguration, fileConfiguration));
 		}
 	}
 }

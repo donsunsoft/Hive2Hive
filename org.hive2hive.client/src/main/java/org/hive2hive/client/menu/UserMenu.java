@@ -26,7 +26,7 @@ public final class UserMenu extends H2HConsoleMenu {
 	protected void createItems() {
 		CreateUserCredentials = new H2HConsoleMenuItem("Create User Credentials") {
 			protected void execute() throws Exception {
-				userCredentials = new UserCredentials(askUsedId(), askPassword(), askPin());
+				userCredentials = new UserCredentials(askUserId(), askPassword(), askPin());
 				exit();
 			}
 		};
@@ -46,7 +46,7 @@ public final class UserMenu extends H2HConsoleMenu {
 		return userCredentials;
 	}
 
-	private String askUsedId() {
+	private String askUserId() {
 		print("Specify the user ID:");
 		return awaitStringParameter().trim();
 	}
