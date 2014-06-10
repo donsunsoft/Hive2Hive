@@ -21,7 +21,8 @@
   	<modules>
 		<module>org.hive2hive.core</module>
 		<module>org.hive2hive.client</module>
-	</modules>
+		<module>org.hive2hive.core.libs</module>
+  	</modules>
 	
 	<dependencies>
 		<dependency>

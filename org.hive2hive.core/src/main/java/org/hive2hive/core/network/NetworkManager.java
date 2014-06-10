@@ -35,6 +35,14 @@ public class NetworkManager implements INetworkEventGenerator {
 		dataManager = new DataManager(this);
 		messageManager = new MessageManager(this);
 
+		System.err.println("Constructor of NetorkManger called!!!!");
+		System.err.println("Constructor of NetorkManger called!!!!");
+		System.err.println("Constructor of NetorkManger called!!!!");
+		System.err.println("Constructor of NetorkManger called!!!!");
+		System.err.println("Constructor of NetorkManger called!!!!");
+		System.err.println("Constructor of NetorkManger called!!!!");
+		System.err.println("Constructor of NetorkManger called!!!!");
+
 		eventListeners = new ArrayList<INetworkEventListener>();
 	}
 
@@ -50,8 +58,8 @@ public class NetworkManager implements INetworkEventGenerator {
 		} else if (networkConfiguration.getBootstrapPort() == -1) {
 			success = connection.connect(networkConfiguration.getBootstrapAddress());
 		} else {
-			success = connection.connect(networkConfiguration.getBootstrapAddress(),
-					networkConfiguration.getBootstrapPort());
+			success = connection
+					.connect(networkConfiguration.getBootstrapAddress(), networkConfiguration.getBootstrapPort());
 		}
 		notifyConnectionStatus(success);
 		return success;
@@ -63,8 +71,9 @@ public class NetworkManager implements INetworkEventGenerator {
 	 * @return <code>true</code> if the disconnection was successful, <code>false</code> otherwise
 	 */
 	public boolean disconnect() {
-		if (session != null && session.getProfileManager() != null)
+		if (session != null && session.getProfileManager() != null) {
 			session.getProfileManager().stopQueueWorker();
+		}
 
 		boolean success = connection.disconnect();
 		notifyDisconnectionStatus(success);
@@ -99,8 +108,9 @@ public class NetworkManager implements INetworkEventGenerator {
 	 * Returns the session of the currently logged in user.
 	 */
 	public H2HSession getSession() throws NoSessionException {
-		if (session == null)
+		if (session == null) {
 			throw new NoSessionException();
+		}
 		return session;
 	}
 
@@ -110,8 +120,9 @@ public class NetworkManager implements INetworkEventGenerator {
 	 * @return the user id or null in case no session exists
 	 */
 	public String getUserId() {
-		if (session == null)
+		if (session == null) {
 			return null;
+		}
 		return session.getCredentials().getUserId();
 	}
 
@@ -146,20 +157,22 @@ public class NetworkManager implements INetworkEventGenerator {
 	private void notifyConnectionStatus(boolean isSuccessful) {
 		Iterator<INetworkEventListener> iterator = eventListeners.iterator();
 		while (iterator.hasNext()) {
-			if (isSuccessful)
+			if (isSuccessful) {
 				iterator.next().onConnectionSuccess(new ConnectionEvent(networkConfiguration));
-			else
+			} else {
 				iterator.next().onConnectionFailure(new ConnectionEvent(networkConfiguration));
+			}
 		}
 	}
-	
+
 	private void notifyDisconnectionStatus(boolean isSuccessful) {
 		Iterator<INetworkEventListener> iterator = eventListeners.iterator();
 		while (iterator.hasNext()) {
-			if (isSuccessful)
+			if (isSuccessful) {
 				iterator.next().onDisconnectionSuccess(new ConnectionEvent(networkConfiguration));
-			else
+			} else {
 				iterator.next().onDisconnectionFailure(new ConnectionEvent(networkConfiguration));
+			}
 		}
 	}
 }

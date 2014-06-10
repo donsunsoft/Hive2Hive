@@ -68,5 +68,7 @@ Export-Package: org.hive2hive.core,
  org.hive2hive.core.processes.util,
  org.hive2hive.core.security,
  org.hive2hive.core.tomp2p
-Bundle-ClassPath: .
-Require-Bundle: org.hive2hive.rcp.client.libs;bundle-version="1.0.0"
+Bundle-ClassPath: .,
+ src/main/java/,
+ src/main/resources/
+Require-Bundle: org.hive2hive.core.libs;bundle-version="1.0.0"
