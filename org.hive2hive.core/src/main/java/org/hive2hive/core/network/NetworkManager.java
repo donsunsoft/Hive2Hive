@@ -35,14 +35,6 @@ public class NetworkManager implements INetworkEventGenerator {
 		dataManager = new DataManager(this);
 		messageManager = new MessageManager(this);
 
-		System.err.println("Constructor of NetorkManger called!!!!");
-		System.err.println("Constructor of NetorkManger called!!!!");
-		System.err.println("Constructor of NetorkManger called!!!!");
-		System.err.println("Constructor of NetorkManger called!!!!");
-		System.err.println("Constructor of NetorkManger called!!!!");
-		System.err.println("Constructor of NetorkManger called!!!!");
-		System.err.println("Constructor of NetorkManger called!!!!");
-
 		eventListeners = new ArrayList<INetworkEventListener>();
 	}
 

@@ -24,6 +24,7 @@ public class MetaFileSmall extends MetaFile {
 		this.chunkKey = chunkKey;
 	}
 
+	// TODO why do we need to return the concrete class here - would not IFileVersion do the job as well?
 	public List<FileVersion> getVersions() {
 		return versions;
 	}
@@ -65,8 +66,9 @@ public class MetaFileSmall extends MetaFile {
 		}
 
 		for (FileVersion version : versions) {
-			if (version.getIndex() == index)
+			if (version.getIndex() == index) {
 				return version;
+			}
 		}
 
 		return null;

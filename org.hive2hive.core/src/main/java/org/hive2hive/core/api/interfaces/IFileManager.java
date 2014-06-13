@@ -7,6 +7,7 @@ import java.util.List;
 import org.hive2hive.core.exceptions.IllegalFileLocation;
 import org.hive2hive.core.exceptions.NoPeerConnectionException;
 import org.hive2hive.core.exceptions.NoSessionException;
+import org.hive2hive.core.model.IFileVersion;
 import org.hive2hive.core.model.PermissionType;
 import org.hive2hive.core.processes.framework.interfaces.IProcessComponent;
 import org.hive2hive.core.processes.framework.interfaces.IResultProcessComponent;
@@ -31,8 +32,7 @@ public interface IFileManager extends IManager {
 	 * @throws NoPeerConnectionException the peer has no connection to the network
 	 * @throws IllegalFileLocation the file is at a wrong location
 	 */
-	IProcessComponent add(File file) throws NoSessionException, NoPeerConnectionException,
-			IllegalFileLocation;
+	IProcessComponent add(File file) throws NoSessionException, NoPeerConnectionException, IllegalFileLocation;
 
 	/**
 	 * Update a file and create a new version.<br>
@@ -46,8 +46,7 @@ public interface IFileManager extends IManager {
 	 *             exception description.
 	 * @throws NoPeerConnectionException the peer has no connection to the network
 	 */
-	IProcessComponent update(File file) throws NoSessionException, IllegalArgumentException,
-			NoPeerConnectionException;
+	IProcessComponent update(File file) throws NoSessionException, IllegalArgumentException, NoPeerConnectionException;
 
 	/**
 	 * Move a file / folder from a given source to a given destination. This operation can also be used to
@@ -59,8 +58,7 @@ public interface IFileManager extends IManager {
 	 * @throws NoSessionException no user has logged in
 	 * @throws NoPeerConnectionException the peer has no connection to the network
 	 */
-	IProcessComponent move(File source, File destination) throws NoSessionException,
-			NoPeerConnectionException;
+	IProcessComponent move(File source, File destination) throws NoSessionException, NoPeerConnectionException;
 
 	/**
 	 * Delete a file / folder and all versions of that file from the network. This operation deletes also the
@@ -107,9 +105,8 @@ public interface IFileManager extends IManager {
 	 * @throws NoSessionException no user has logged in
 	 * @throws NoPeerConnectionException the peer has no connection to the network
 	 */
-	IProcessComponent share(File folder, String userId, PermissionType permission)
-			throws IllegalFileLocation, IllegalArgumentException, NoSessionException,
-			NoPeerConnectionException;
+	IProcessComponent share(File folder, String userId, PermissionType permission) throws IllegalFileLocation,
+			IllegalArgumentException, NoSessionException, NoPeerConnectionException;
 
 	/**
 	 * Get a full list of all files in the DHT of the currently logged in user. This must not necessary match
@@ -119,5 +116,8 @@ public interface IFileManager extends IManager {
 	 * @throws NoSessionException no user has logged in
 	 */
 	IResultProcessComponent<List<FileTaste>> getFileList() throws NoSessionException;
+
+	IResultProcessComponent<List<IFileVersion>> getFileVersions(File file) throws NoSessionException,
+			NoPeerConnectionException;
 
 }

@@ -8,6 +8,7 @@ import java.util.Set;
 import org.hive2hive.core.H2HSession;
 import org.hive2hive.core.exceptions.NoPeerConnectionException;
 import org.hive2hive.core.exceptions.NoSessionException;
+import org.hive2hive.core.model.IFileVersion;
 import org.hive2hive.core.model.UserPermission;
 import org.hive2hive.core.network.NetworkManager;
 import org.hive2hive.core.network.data.DataManager;
@@ -54,6 +55,7 @@ import org.hive2hive.core.processes.implementations.files.recover.SelectVersionS
 import org.hive2hive.core.processes.implementations.files.update.CleanupChunksStep;
 import org.hive2hive.core.processes.implementations.files.update.CreateNewVersionStep;
 import org.hive2hive.core.processes.implementations.files.update.UpdateMD5inUserProfileStep;
+import org.hive2hive.core.processes.implementations.files.version.GetFileVersionsProcess;
 import org.hive2hive.core.processes.implementations.login.ContactOtherClientsStep;
 import org.hive2hive.core.processes.implementations.login.SessionCreationStep;
 import org.hive2hive.core.processes.implementations.login.SessionParameters;
@@ -92,8 +94,9 @@ public final class ProcessFactory {
 	private static ProcessFactory instance;
 
 	public static ProcessFactory instance() {
-		if (instance == null)
+		if (instance == null) {
 			instance = new ProcessFactory();
+		}
 		return instance;
 	}
 
@@ -373,5 +376,10 @@ public final class ProcessFactory {
 		process.add(new SendNotificationsMessageStep(context, networkManager));
 
 		return process;
+	}
+
+	public IResultProcessComponent<List<IFileVersion>> createFileVersionProcess(File file, NetworkManager networkManager)
+			throws NoSessionException, NoPeerConnectionException {
+		return new GetFileVersionsProcess(file, networkManager);
 	}
 }
